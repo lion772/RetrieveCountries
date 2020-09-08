@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">PaisesApp</string>
+    <string name="error_message">An error occured while loading Data</string>
+</resources>
