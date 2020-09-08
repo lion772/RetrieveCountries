@@ -23,7 +23,7 @@ class CountriesService {
         return api.getCountries()
     }
 
-    private lateinit var retrofit: Retrofit
+    /*private lateinit var retrofit: Retrofit
     private fun getRetrofitInstance(): Retrofit{
         val httpClient = OkHttpClient.Builder().build()
         if (!::retrofit.isInitialized){
@@ -36,6 +36,6 @@ class CountriesService {
         return retrofit
     }
 
-    fun <T> createService(serviceClass: Class<T>): T = getRetrofitInstance().create(serviceClass)
+    fun <T> createService(serviceClass: Class<T>): T = getRetrofitInstance().create(serviceClass)*/
 
 }
