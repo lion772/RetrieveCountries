@@ -2,10 +2,6 @@ package com.example.paisesapp.model
 
 import com.example.paisesapp.di.DaggerApiComponent
 import io.reactivex.Single
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 
 class CountriesService {
