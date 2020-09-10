@@ -1,18 +1,15 @@
 package com.example.paisesapp.view
 
 import android.view.LayoutInflater
-import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.paisesapp.R
 import com.example.paisesapp.model.Country
 import com.example.paisesapp.util.getProgressDrawable
 import com.example.paisesapp.util.loadImage
-import kotlinx.android.synthetic.main.item_country.view.*
 
 class CountryListAdapter(private var countries: ArrayList<Country>):
     RecyclerView.Adapter<CountryListAdapter.CountryViewHolder>() {

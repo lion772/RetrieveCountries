@@ -8,9 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.paisesapp.R
-import com.example.paisesapp.model.Country
 import com.example.paisesapp.viewmodel.ListViewModel
-import com.example.paisesapp.viewmodel.bind
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
