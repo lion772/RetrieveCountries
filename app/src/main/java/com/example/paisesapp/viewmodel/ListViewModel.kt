@@ -3,34 +3,44 @@ package com.example.paisesapp.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.paisesapp.di.DaggerApiComponent
-import com.example.paisesapp.model.CountriesService
+import androidx.lifecycle.viewModelScope
+import com.example.paisesapp.countryusecase.CountryUseCase
 import com.example.paisesapp.model.Country
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.observers.DisposableSingleObserver
-import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
+import com.example.paisesapp.network.ApiResult
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class ListViewModel: ViewModel() {
-
-    @Inject
-    lateinit var countriesService:CountriesService
-    private val disposable = CompositeDisposable()
+class ListViewModel(private val countryUseCase: CountryUseCase): ViewModel() {
 
     private val _countries = MutableLiveData<List<Country>>()
     val countries: LiveData<List<Country>>
         get() = _countries
 
-    private val _countryLoadError = MutableLiveData<Boolean>()
-    val countryLoadError: LiveData<Boolean>
+    private val _countryLoadError = MutableLiveData<String>()
+    val countryLoadError: LiveData<String>
         get() = _countryLoadError
 
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean>
         get() = _loading
 
-    init {
+    fun refresh(){
+        fetchCountries()
+    }
+
+    private fun fetchCountries() {
+        _loading.value = true
+        viewModelScope.launch(Dispatchers.IO) {
+            when(val response = countryUseCase.getCountryAwait()){
+                is ApiResult.Success -> _countries.postValue(response.data)
+                is ApiResult.Error -> _countryLoadError.postValue(response.message)
+            }
+            _loading.postValue(false)
+        }
+    }
+
+
+    /*init {
         DaggerApiComponent.create().injectCountryService(this)
     }
 
@@ -63,5 +73,5 @@ class ListViewModel: ViewModel() {
     override fun onCleared() {
         super.onCleared()
         disposable.clear()
-    }
+    }*/
 }

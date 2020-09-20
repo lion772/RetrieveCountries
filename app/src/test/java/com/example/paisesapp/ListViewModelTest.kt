@@ -1,7 +1,6 @@
 package com.example.paisesapp
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.paisesapp.model.CountriesService
 import com.example.paisesapp.model.Country
 import com.example.paisesapp.viewmodel.ListViewModel
 import io.reactivex.Scheduler

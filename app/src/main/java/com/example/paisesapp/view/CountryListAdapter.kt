@@ -1,23 +1,23 @@
 package com.example.paisesapp.view
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.paisesapp.R
+import com.example.paisesapp.databinding.ItemCountryBinding
 import com.example.paisesapp.model.Country
-import com.example.paisesapp.util.getProgressDrawable
-import com.example.paisesapp.util.loadImage
 
-class CountryListAdapter(private var countries: ArrayList<Country>):
+class CountryListAdapter(private var countries: ArrayList<Country> = arrayListOf()):
     RecyclerView.Adapter<CountryListAdapter.CountryViewHolder>() {
 
     var onClickCountry: ((Country)->Unit)? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        CountryViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_country, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        return CountryViewHolder(DataBindingUtil.inflate(inflater,
+            R.layout.item_country, parent, false))
+    }
 
     override fun getItemCount() = countries.size
 
@@ -29,7 +29,7 @@ class CountryListAdapter(private var countries: ArrayList<Country>):
         notifyDataSetChanged()
     }
 
-    inner class CountryViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    inner class CountryViewHolder( var view: ItemCountryBinding): RecyclerView.ViewHolder(view.root) {
 
         init {
             itemView.setOnClickListener{
@@ -38,15 +38,9 @@ class CountryListAdapter(private var countries: ArrayList<Country>):
         }
 
         fun bind(position: Int){
-            val country = countries[position]
-            val name = itemView.findViewById<TextView>(R.id.name)
-            val capital = itemView.findViewById<TextView>(R.id.capital)
-            val bandeira = itemView.findViewById<ImageView>(R.id.image_flag)
-            val progressDrawable = getProgressDrawable(itemView.context)
+            view.country = countries[position]
 
-            name.text = country.countryName
-            capital.text = country.capital
-            bandeira.loadImage(country.flag, progressDrawable)
+            //bandeira.loadImage(country.flag, progressDrawable)
         }
 
     }

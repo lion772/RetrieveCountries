@@ -1,38 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/layout_height">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ImageView
-        android:id="@+id/image_flag"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:padding="@dimen/standard_padding"/>
+    <data>
+
+        <variable
+            name="country"
+            type="com.example.paisesapp.model.Country" />
+    </data>
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:layout_weight="2"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_height">
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/Title"
-            android:text="Country"/>
+        <ImageView
+            android:id="@+id/image_flag"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/standard_padding" />
 
-        <TextView
-            android:id="@+id/capital"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:text="Capital"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/name"
+                style="@style/Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Country"
+                android:text="@{country.countryName}" />
+
+            <TextView
+                android:id="@+id/capital"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Capital"
+                android:text="@{country.capital}"
+                android:textStyle="bold" />
+
+        </LinearLayout>
     </LinearLayout>
-
-
-</LinearLayout>
+</layout>

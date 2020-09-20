@@ -4,22 +4,22 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.paisesapp.R
+import com.example.paisesapp.databinding.ActivityMainBinding
 import com.example.paisesapp.viewmodel.ListViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var viewModel: ListViewModel
-    private val countriesAdapter: CountryListAdapter = CountryListAdapter(arrayListOf())
+    private val viewModel: ListViewModel by viewModel()
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        viewModel = ViewModelProviders.of(this).get(ListViewModel::class.java)
         viewModel.refresh()
 
         settingCountryAdapter()
@@ -41,13 +41,14 @@ class MainActivity : AppCompatActivity() {
         viewModel.countries.observe(this, Observer {countries ->
             countries?.let {
                 countries_list.visibility = View.VISIBLE
-                countriesAdapter.updateCountries(it)
+                (countries_list.adapter as CountryListAdapter).updateCountries(it)
             }
         })
 
-        viewModel.countryLoadError.observe(this, Observer {isError ->
-            isError?.let {
-                list_error.visibility = if (it) View.VISIBLE else View.GONE
+        viewModel.countryLoadError.observe(this, Observer {ErrorMessage ->
+            ErrorMessage?.let {Message ->
+                list_error.text = Message
+                //if(it) View.VISIBLE else View.GONE
             }
         })
 
@@ -65,9 +66,9 @@ class MainActivity : AppCompatActivity() {
     private fun settingCountryAdapter(){
         countries_list.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            adapter = countriesAdapter
+            adapter = CountryListAdapter()
         }
-        countriesAdapter.onClickCountry = {Country ->
+        (countries_list.adapter as CountryListAdapter).onClickCountry = {Country ->
             Toast.makeText(this, "O país ${Country.countryName} foi clicado!", Toast.LENGTH_SHORT).show()
         }
     }
