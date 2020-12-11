@@ -61,7 +61,8 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$supportVersion"
 
     implementation "android.arch.lifecycle:extensions:$lifeCycleExtensionsVersion"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+    implementation 'androidx.room:room-runtime:2.2.5'
 
 
     testImplementation 'junit:junit:4.12'
@@ -76,7 +77,7 @@ dependencies {
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-
+    annotationProcessor 'androidx.room:room-compiler:2.2.5'
 
 
 }

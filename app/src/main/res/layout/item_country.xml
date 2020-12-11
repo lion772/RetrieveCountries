@@ -2,21 +2,32 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
         <variable
             name="country"
             type="com.example.paisesapp.model.Country" />
+        <variable
+            name="listener"
+            type="com.example.paisesapp.view.CountryClickListener"/>
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/layout_height">
+        android:layout_height="@dimen/layout_height"
+        android:onClick="@{listener::onCountryClicked}">
+
+        <TextView
+            android:id="@+id/tv_country_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="@{String.valueOf(country.uuid)}" />
 
         <ImageView
             android:id="@+id/image_flag"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:imageUrl="@{country.flag}"
             android:padding="@dimen/standard_padding" />
 
         <LinearLayout

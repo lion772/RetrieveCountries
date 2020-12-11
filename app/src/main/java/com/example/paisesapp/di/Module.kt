@@ -30,11 +30,13 @@ object Module {
         single { provideRetrofit(get()) }
     }
 
-    private fun provideCountriesApi(retrofit: Retrofit) = retrofit.create(CountriesApi::class.java)
+    private fun provideRetrofit(okHttpClient: OkHttpClient) = Retrofit.Builder()
+        .baseUrl(BuildConfig.HOST)
+        .client(okHttpClient)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
 
-    private fun provideRetrofit(okHttpClient: OkHttpClient) =
-        Retrofit.Builder().baseUrl(BuildConfig.HOST).client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create()).build()
+    private fun provideCountriesApi(retrofit: Retrofit) = retrofit.create(CountriesApi::class.java)
 
     private fun provideOkHttpClient(authInterceptor : AuthInterceptor) =
         OkHttpClient().newBuilder().addInterceptor(authInterceptor).build()

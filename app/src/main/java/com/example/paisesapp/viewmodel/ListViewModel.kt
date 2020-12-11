@@ -31,7 +31,7 @@ class ListViewModel(private val countryUseCase: CountryUseCase): ViewModel() {
     private fun fetchCountries() {
         _loading.value = true
         viewModelScope.launch(Dispatchers.IO) {
-            when(val response = countryUseCase.getCountryAwait()){
+            when(val response = countryUseCase.getCountries()){
                 is ApiResult.Success -> _countries.postValue(response.data)
                 is ApiResult.Error -> _countryLoadError.postValue(response.message)
             }

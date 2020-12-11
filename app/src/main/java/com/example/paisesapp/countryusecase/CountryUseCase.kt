@@ -4,5 +4,5 @@ import com.example.paisesapp.repository.CountryRepository
 
 class CountryUseCase(private val countryRepository: CountryRepository) {
 
-    suspend fun getCountryAwait() = countryRepository.getCountries()
+    suspend fun getCountries() = countryRepository.getCountries()
 }

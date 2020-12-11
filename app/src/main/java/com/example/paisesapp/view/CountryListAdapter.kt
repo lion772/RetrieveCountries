@@ -1,7 +1,9 @@
 package com.example.paisesapp.view
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.paisesapp.R
@@ -29,19 +31,22 @@ class CountryListAdapter(private var countries: ArrayList<Country> = arrayListOf
         notifyDataSetChanged()
     }
 
-    inner class CountryViewHolder( var view: ItemCountryBinding): RecyclerView.ViewHolder(view.root) {
+    inner class CountryViewHolder( var view: ItemCountryBinding): RecyclerView.ViewHolder(view.root), CountryClickListener{
 
-        init {
+        /*init {
             itemView.setOnClickListener{
                 onClickCountry?.invoke(countries[adapterPosition])
             }
-        }
+        }*/
 
         fun bind(position: Int){
             view.country = countries[position]
-
-            //bandeira.loadImage(country.flag, progressDrawable)
         }
 
+        override fun onCountryClicked(v:View) {
+            view.listener = this
+        }
     }
+
+
 }
